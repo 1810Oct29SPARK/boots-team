@@ -81,7 +81,16 @@ public class BootServlet extends HttpServlet {
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		try {
+			if (bs.updateBoot(om.readValue(request.getReader(), Boot.class))) {
+				response.getWriter().write("Boot Updated");
+			} else {
+				response.getWriter().write("Failed to Update Boot");
+			}
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			response.getWriter().write("Invalid Request");
+		}
 	}
 
 	/**
@@ -89,7 +98,16 @@ public class BootServlet extends HttpServlet {
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		try {
+			if (bs.deleteBoot(om.readValue(request.getReader(), Boot.class))) {
+				response.getWriter().write("Boot Deleted");
+			} else {
+				response.getWriter().write("Failed to Delete");
+			}
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			response.getWriter().write("Invalid Request");
+		}
 	}
 
 }

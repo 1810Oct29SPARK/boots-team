@@ -6,7 +6,7 @@ public class Boot {
 	private String bootType;
 	private int bootSize;
 	private String bootColor;
-	private boolean bootGender;
+	private String bootStyle;
 
 	public Boot() {
 		super();
@@ -17,21 +17,21 @@ public class Boot {
 		this.bootId = bootId;
 	}
 
-	public Boot(String bootType, int bootSize, String bootColor, boolean bootGender) {
+	public Boot(String bootType, int bootSize, String bootColor, String bootStyle) {
 		super();
 		this.bootType = bootType;
 		this.bootSize = bootSize;
 		this.bootColor = bootColor;
-		this.bootGender = bootGender;
+		this.bootStyle = bootStyle;
 	}
 
-	public Boot(int bootId, String bootType, int bootSize, String bootColor, boolean bootGender) {
+	public Boot(int bootId, String bootType, int bootSize, String bootColor, String bootStyle) {
 		super();
 		this.bootId = bootId;
 		this.bootType = bootType;
 		this.bootSize = bootSize;
 		this.bootColor = bootColor;
-		this.bootGender = bootGender;
+		this.bootStyle = bootStyle;
 	}
 
 	public int getBootId() {
@@ -66,18 +66,18 @@ public class Boot {
 		this.bootColor = bootColor;
 	}
 
-	public boolean getBootGender() {
-		return bootGender;
+	public String getBootStyle() {
+		return bootStyle;
 	}
 
-	public void setBootGender(boolean bootGender) {
-		this.bootGender = bootGender;
+	public void setBootStyle(String bootStyle) {
+		this.bootStyle = bootStyle;
 	}
 
 	@Override
 	public String toString() {
 		return "Boot [bootId=" + bootId + ", bootType=" + bootType + ", bootSize=" + bootSize + ", bootColor="
-				+ bootColor + ", bootGender=" + bootGender + "]";
+				+ bootColor + ", bootStyle=" + bootStyle + "]";
 	}
 
 	@Override
