@@ -17,6 +17,14 @@ public class Boot {
 		this.bootId = bootId;
 	}
 
+	public Boot(String bootType, int bootSize, String bootColor, boolean bootGender) {
+		super();
+		this.bootType = bootType;
+		this.bootSize = bootSize;
+		this.bootColor = bootColor;
+		this.bootGender = bootGender;
+	}
+
 	public Boot(int bootId, String bootType, int bootSize, String bootColor, boolean bootGender) {
 		super();
 		this.bootId = bootId;

@@ -1,11 +1,17 @@
 package com.revature.servlet;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.bean.Boot;
+import com.revature.service.BootService;
 
 /**
  * Servlet implementation class BootServlet
@@ -14,11 +20,16 @@ import javax.servlet.http.HttpServletResponse;
 public class BootServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private BootService bs;
+	private ObjectMapper om;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public BootServlet() {
 		super();
+		bs = new BootService();
+		om = new ObjectMapper();
 	}
 
 	/**
@@ -27,8 +38,24 @@ public class BootServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String idString = request.getParameter("id");
+		if (idString != null) {
+			try {
+				int bootId = Integer.parseInt(idString);
+				Boot boot = bs.getBootById(bootId);
+				if (boot != null) {
+					response.getWriter().write(om.writeValueAsString(boot));
+				} else {
+					response.getWriter().write("Boot not Found");
+				}
+			} catch (RuntimeException e) {
+				e.printStackTrace();
+				response.getWriter().write("Invalid Request!");
+			}
+		} else {
+			List<Boot> bootList = bs.getAllBoots();
+			response.getWriter().write(om.writeValueAsString(bootList));
+		}
 	}
 
 	/**
@@ -37,8 +64,16 @@ public class BootServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			if (bs.addBoot(om.readValue(request.getReader(), Boot.class))) {
+				response.getWriter().write("Boot Added");
+			} else {
+				response.getWriter().write("Failed to Add Boot");
+			}
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			response.getWriter().write("Invalid Request");
+		}
 	}
 
 	/**

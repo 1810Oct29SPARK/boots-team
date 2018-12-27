@@ -41,6 +41,8 @@ public class BootDaoImpl implements BootDao {
 	@Override
 	public int addBoot(Boot boot) {
 		try {
+			int newId = this.bootCollection.size() + 1;
+			boot.setBootId(newId);
 			this.bootCollection.add(boot);
 			return 1;
 		} catch (Exception e) {
